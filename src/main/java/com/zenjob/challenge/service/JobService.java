@@ -45,6 +45,49 @@ public class JobService {
     public List<Shift> getShifts(UUID id) {
         return shiftRepository.findAllByJob_Id(id);
     }
+    
+    
+    //task A
+    public bool cancelJob(UUID id){
+        Job job = getJob(id);
+        if (job ==null){
+        return false;
+        }
+        job.endTime = Instant.now();
+
+        List<Shift> shifts =job.getShifts(id);
+        if(shifts!=null){
+        foreach(Shift shift:shifts){
+        shift.endTime=Instant.now();
+
+            }
+
+        }
+
+        return true;
+    }
+
+    //task B
+        public bool cancelShift(UUID id){
+            Shift shift = getShift(id);
+            if (shift!=null){
+              shift.endTime = Instant.now();
+              return true;
+            }
+
+            return false;
+        }
+
+    public Job getJob(UUID id) throws Exception{
+       return jobRepository.findById(id);
+
+    }
+
+    public Job getShift(UUID id) throws Exception{
+       return shiftRepository.findById(id);
+
+    }
+
 
     public void bookTalent(UUID talent, UUID shiftId) {
         shiftRepository.findById(shiftId).map(shift -> shiftRepository.save(shift.setTalentId(talent)));
