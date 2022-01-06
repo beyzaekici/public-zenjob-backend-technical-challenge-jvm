@@ -50,6 +50,14 @@ public class JobController {
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         private LocalDate   end;
     }
+    
+    //beyza ekici task A
+    @PostMapping
+    @ResponseBody
+    public ResponseDto<bool> cancelJob(@RequestBody @Valid UUID uuid) {
+        Job job = jobService.getJob(uuid, dto.start, dto.end);
+        return
+    }
 
     @Builder
     @Data
