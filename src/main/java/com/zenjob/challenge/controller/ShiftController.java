@@ -58,6 +58,13 @@ public class ShiftController {
     private static class BookTalentRequestDto {
         UUID talent;
     }
+    
+    //beyza ekici task B
+    @PostMapping(path = "/{id}/cancelShift")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public boolean bookTalent(@PathVariable("id") UUID shiftId) {
+       return jobService.cancelShift(shiftId);
+    }
 
     @Builder
     @Data
